@@ -1,0 +1,262 @@
+
+body,html{
+    margin:0px;
+    padding:0px;
+
+}
+
+@media screen and (max-width: 10000px) {
+    #quiz {
+        top:14%;
+    }
+}
+/* Tablet Landscape */
+@media screen and (max-width: 1060px) {
+    #quiz {
+        top:5.5%;
+    }
+
+}
+
+/* Tabled Portrait */
+@media screen and (max-width: 768px) {
+    #quiz {
+        width: 40%;
+        top:13%;
+        font-size: 50%;
+    }
+    #pergunta {
+        font-size: 70%;
+    }
+    #game {
+        font-size: 50%;
+     }
+    #btnRollDice{
+        width: 8%;
+        font-size: 30%;
+    }
+    #myBtn {
+        font-size: 30%;
+    }
+}
+@media screen and (max-width: 450px) {
+    #quiz {
+        width: 40%;
+        top:8%;
+        font-size: 50%;
+    }
+    #pergunta {
+        font-size: 70%;
+    }
+    #game {
+        font-size: 50%;
+    }
+    #btnRollDice{
+        width: 8%;
+        font-size: 30%;
+    }
+    #myBtn {
+        font-size: 30%;
+    }
+
+}
+
+canvas{
+    width: 70%;
+    height: auto;
+}
+
+#quiz {
+    width: 60%;
+    height: auto;
+    box-shadow:0 0 15px #000;
+}
+
+* { padding: 0; margin: 0; }
+canvas {
+    background: #eee;
+    display:inherit ;
+    margin: 0 auto;
+    box-shadow:0 0 70px #111;
+
+}
+
+.requesNames fieldset {
+    font-weight:bold;
+    border:3px solid #6D3700;
+    padding: 40px;
+    width: 30%;
+    height: 80%;
+    margin-top:2%;
+    margin-left: 32%;
+    position: relative;
+    font-size: 1.5em;
+}
+
+.requesNames input{
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    padding: 10px;
+    font-family:"Goudy Old Style";
+    font-size: 1em;
+    color: #6D3700;
+    transition: border 0.5s;
+    -webkit-transition: border 0.5s;
+    -moz-transition: border 0.5s;
+    -o-transition: border 0.5s;
+    border: 3px  solid #6D3700;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    font-weight:bold;
+}
+
+.requesNames textarea{
+    height: 20%;
+}
+.requesNames input[type="button"]{
+    background-color:#e58f0e;
+    color: #6D3700;
+    margin-top: 4%;
+    cursor: pointer;
+    margin-top: 30px;
+    font-weight:bold;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+
+
+}
+.requesNames input[type="button"]:hover{
+    background-color: #DFB354;
+
+    box-shadow: inset 0 2px 5px #fff, 0 2px 3px #666;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffcc00), to(#ff6600))
+}
+
+.requesNames h1{
+    margin-top: 5%;
+    font-family:"Goudy Old Style";
+    font-size: 500%;
+    color:#6D3700;
+
+}
+
+
+.button {
+    font-size: 1em;
+    padding: 10px;
+    color: #6D3700;
+    border: 2px solid #6D3700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    background-color: #DFB354;
+    border-radius: 20px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background-image: url(../img/paper.jpg);
+    border-radius: 20px;
+    width: 50%;
+    position: relative;
+    transition: all 5s ease-in-out;
+    font-size: 150%;
+}
+
+.popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.popup .content {
+    max-height: 30%;
+    overflow: auto;
+
+}
+a {
+    text-decoration: blink;
+    font-weight: bold;
+}
+.box{
+    margin-top: -3%;
+
+}
+.box.button {
+    text-decoration: none;
+}
+@-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+    0% { opacity: 0;}
+    100% { opacity: 1; }
+}
+@-o-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+.requesNames {
+    -webkit-animation: fadeIn 3s ease-in-out;
+    -moz-animation: fadeIn 3s ease-in-out;
+    -o-animation: fadeIn 3s ease-in-out;
+    animation: fadeIn 3s ease-in-out;
+    margin-top: -5%;
+}
+
+fieldset {
+
+    opacity:0;
+    -webkit-animation: fadeIn 9s ease-in-out;
+    -moz-animation: fadeIn 9s ease-in-out;
+    -o-animation: fadeIn 9s ease-in-out;
+    animation: fadeIn 9s ease-in-out;
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+    -o-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;}
+
+.wrapper {
+    -webkit-animation: fadeIn 2s ease-in-out;
+    -moz-animation: fadeIn 2s ease-in-out;
+    -o-animation: fadeIn 2s ease-in-out;
+    animation: fadeIn 2s ease-in-out;
+}
+

@@ -1,0 +1,174 @@
+
+input[type=radio] + label {
+    display:inline-block;
+    width:95%;
+    padding:2%;
+    border:1.5px solid #ddd;
+    margin-bottom:2%;
+    cursor:pointer;
+}
+
+
+input[type=radio] {
+    display:none;
+}
+
+input[type=radio] + label:hover{ border:1px solid #000000;}
+input[type=radio]:checked + label {
+    background-image: none;
+    background-color:#0C0;
+    color:#fff;
+    border:1px solid #0C0 !important;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+p,h1 {
+    text-align: center;
+    font-family:"Goudy Old Style";
+    font-size: 150%;
+
+}
+
+
+input[type=submit] {
+    width:100%;
+    height:11%;
+    position:absolute;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: #6D3700; /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: darkred;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 45%; /* Could be more or less, depending on screen size */
+
+}
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body {
+    background-image: url(../img/paper.jpg);
+    background-size: auto;
+
+}
+
+#quiz {
+    -webkit-animation: fadeIn 0.5s ease-in-out;
+    -moz-animation: fadeIn 0.5s ease-in-out;
+    -o-animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.5s ease-in-out;
+    width:50%;
+    height:auto;
+    position:absolute;
+    left:25%;
+    background-color: rgba(209, 145, 7,0.8);
+    border:inherit;
+}
+
+#myBtn {
+    background-color: #e58f0e;
+    font-weight:bold;
+    font-family:"Goudy Old Style";
+    font-size: 200%;
+    border-color: black;
+
+}
+#myBtn:hover{
+    background-color: #DFB354;
+}
+
+
+ul {
+    margin-top: 1%;
+    margin-bottom: 1%;
+
+}
+
+
+ul li {
+    display: inline;
+    margin-left: 18%;
+
+    font-size: 200%;
+}
+
+
+#die {
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    background-size: 100% 90% ;
+    padding-top: 0px;
+    padding-bottom: 2%;
+    background-repeat: no-repeat;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-size: 200%;
+    color: white;
+
+}
+
+
+#btnRollDice {
+    margin-left: -5%;
+    background-image: url(../img/lancadado.png);
+    background-size: 50px 50px ;
+    background-position: 10% 20%;
+    background-repeat: no-repeat;
+    background-color: #ffb700;
+    -moz-border-radius:42px;
+    -webkit-border-radius:42px;
+    border-radius:42px;
+    border:3px solid #6D3700;
+    display:inline-block;
+    cursor:pointer;
+    color:#6D3700;
+    font-family: 'Goudy Old Style';
+    font-size:17px;
+    padding:16px 40px;
+    padding-left:5%;
+
+}
+#btnRollDice:hover {
+    background-color:#DFB354;
+    box-shadow: inset 0 2px 5px #fff, 0 2px 3px #666;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffcc00), to(#ff6600))
+}
+#btnRollDice:active {
+    position:relative;
+    top:1px;
+}
+
+#player {
+    color:#6D3700;
+    font-family:"Goudy Old Style";
+    font-weight: bold;
+}

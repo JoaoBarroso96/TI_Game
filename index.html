@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Descobre os Açores</title>
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="css/quiz.css">
+    <script src="perguntas.js"></script>
+    <script src="casas.js"></script>
+
+</head>
+<body>
+
+<div class="requesNames" id="requesNames2"  >
+    <embed src="inicio.mp3" hidden="true" loop="infinite" autostart="TRUE">
+    <h1>À Descoberta dos Açores</h1>
+    <fieldset >
+
+        <legend> Jogadores </legend>
+        <label form="Jogador 1"> Jogador 1: </label>
+        <input type="text" id="jogador1"/>
+        <label form="Jogador 1"> Jogador 2: </label>
+        <input type="text" id="jogador2"/>
+        <input type="button" id="botaoInicial" value="Iniciar" onclick="initGameTwoPlayer();"/>
+        <input type="button" id="btn1Player" value="1 Jogador" onclick="onePlayerDiv();"/>
+    </fieldset>
+
+</div>
+
+
+<div class="requesNames" id="requesNames1">
+
+    <h1 >À Descoberta dos Açores</h1>
+    <fieldset >
+
+        <legend> Jogador </legend>
+        <label form="Jogador 1"> Jogador 1: </label>
+        <input type="text" id="jogador"/>
+        <input type="button" id="botaoInicial1" value="Iniciar" onclick="initGameOnePlayer();"/>
+        <input type="button" id="btn2Player" value="2 Jogadores" onclick="twoPlayerDiv();"/>
+    </fieldset>
+
+</div>
+
+
+
+<div id="game" class="wrapper">
+    <h3 id="jogadorAtual"> </h3>
+    <div class="container">
+        <ul>
+            <li id="player" >Jogador </li>
+            <li id="die" class="dice"></li>
+            <li><button id="btnRollDice" onclick="rollDice()">Lançar Dados</button></li>
+
+        </ul>
+
+        <canvas id="canvas" width="1200" height="721"></canvas>
+    </div>
+            <div class="box">
+                <a class="button"  href="#popup1">Ajuda</a>
+                <a class="button"  href="#popup2">Ilhas</a>
+            </div>
+
+            <div id="popup1" class="overlay">
+                <div class="popup">
+                    <h2>Sobre o Jogo</h2>
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        Casa nº6: avança duas posições; <br />
+                        Casa nº 10: Se resposta correta então fica na mesma casa (10) Caso contrário recua duas
+                        posições;<br />
+                        Casa nº 18: regressa automaticamente ao início do jogo (casa nº 1).
+
+                        Quando terminar as 50 perguntas o(s) jogador(es) perde(m) o jogo.
+                    </div>
+                </div>
+            </div>
+            <div id="popup2" class="overlay">
+                <div class="popup">
+                    <h2>Sobre as Ilhas</h2>
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_do_Pico" target="_blank">Pico </a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_do_Faial" target="_blank">Faial </a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_de_S%C3%A3o_Jorge" target="_blank">S.Jorge</a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Graciosa" target="_blank">Graciosa </a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_Terceira" target="_blank">Terceira</a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_de_S%C3%A3o_Miguel" target="_blank">S.Miguel </a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_de_Santa_Maria" target="_blank">Santa Maria </a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Corvo_(A%C3%A7ores)" target="_blank">Corvo </a> <br />
+                        <a href="https://pt.wikipedia.org/wiki/Ilha_das_Flores_(A%C3%A7ores)" target="_blank">Flores </a> <br />
+                    </div>
+                </div>
+            </div>
+
+
+</div>
+
+<div id="quiz">
+    <h1>Quiz</h1>
+    <form  id="form1" action="JavaScript:verificarResposta()">
+        <div><p id="pergunta" ></p>
+            <center><img id="imgPergunta" src="img/1.jpg" width="30%"></center></div>
+
+        <input id="rbA1" type="radio" name="variable" value="0" /><label onclick="selectLabel(1)" id="a1">Identifies a portion of a string.</label><br />
+        <input id="rbA2" type="radio" name="variable" value="0" /><label onclick="selectLabel(2)" id="a2">Identifies a portion of a string.</label><br />
+        <input id="rbA3" type="radio" name="variable" value="0" /><label onclick="selectLabel(3)" id="a3">Identifies a portion of a string.</label><br />
+        <input id="rbA4" type="radio" name="variable" value="0" /><label onclick="selectLabel(4)" id="a4">Identifies a portion of a string.</label><br />
+        <!--<input type="radio" name="variable" value="0" /><label id="a4">Identifies a portion of a string.</label><br />-->
+
+        <input type="submit" value="Submeter" id="myBtn" action="JavaScript:verificarResposta()">
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close" onclick="onClickCloseErrada()">&times;</span>
+                <p>Resposta errada ! </p>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+	
+    window.onload =	function() {
+        document.getElementById('canvas').style.visibility = 'hidden'
+        document.getElementById("requesNames1").style.display = "none";
+		
+    };
+
+    var divQuiz = document.getElementById("quiz");
+    var divCanvas = document.getElementById("game");
+    divCanvas.style.display = "none";
+    var btnRollDice = document.getElementById("btnRollDice");
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var nDice = 0;
+    var idPlayer = 0; //guarda quem esta a jgr
+    var canMove = false;
+    var playerText = document.getElementById("player");
+    var snd = new Audio("click.mp3");
+    var lstanswersText = new Array();
+
+
+    lstanswersText.push(document.getElementById('a1'));
+    lstanswersText.push(document.getElementById('a2'));
+    lstanswersText.push(document.getElementById('a3'));
+    lstanswersText.push(document.getElementById('a4'));
+
+    divQuiz.style.display = 'none';
+
+    var correctAnswer = 0;
+
+    var lock = false;
+    var lstQuestionPosi = [145,230,325,45];
+
+    var increment = 1;
+    var background = new Image();
+    //background.src = "img/bg.jpg";
+    background.src = "img/tabuleiro.jpg";
+
+    var player1Img = new Image();
+    player1Img.src = "img/player1.png";
+
+    var player2Img = new Image();
+    player2Img.src = "img/player2.png";
+
+
+    var lstPlayer = new Array();
+    var lstPerS= new Array(); //array para guardar as perguntas que ja sairam
+
+
+    // Game objects
+    var player = {
+        x: 100,
+        y: 500,
+        house: 0,
+        nome: "",
+        image: player1Img,
+        house10: false
+    };
+
+    var player2 = {
+        x: 110,
+        y: 500,
+        house: 0,
+        nome: "",
+        image: player2Img,
+        house10: false
+    };
+
+
+    background.onload = function(){
+        showQuestion();
+    }
+
+
+    function onClickCloseErrada() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = "none";
+        divCanvas.style.display = 'inline';
+        divQuiz.style.display = 'none';
+
+        if (lstPlayer.length != 1){
+            if (lstPlayer[(idPlayer+1)%2].house != 9){
+                nDice = 0;
+                lstPlayer[(idPlayer+1)%2].house10 = false;
+            }else{
+
+                if (lstPlayer[(idPlayer+1)%2].house10){
+                    nDice = 0;
+                }else{
+                    lstPlayer[(idPlayer+1)%2].house --;
+                    nDice = 1;
+                    increment = -1;
+                }
+            }
+        }else{
+            if (lstPlayer[0].house != 9){
+                nDice = 0;
+                lstPlayer[0].house10 = false;
+            }else{
+
+                if (lstPlayer[0].house10){
+                    nDice = 0;
+                }else{
+                    lstPlayer[0].house --;
+                    nDice = 1;
+                    increment = -1;
+                }
+            }
+        }
+
+
+        canMove = false;
+
+    }
+
+    function abreLink(id){
+        if(id == 3){
+            window.location.replace('perdeu.html')
+        }else{
+            window.location.replace('ganhou' + id + '.html')
+        }
+
+    }
+
+    function initGame() {
+        playerText.innerHTML = "Jogador: " + lstPlayer[0].nome;
+
+
+        document.getElementById("requesNames2").style.display = "none";
+        document.getElementById("requesNames1").style.display = "none";
+        document.getElementById("btn2Player").style.display = "none";
+        document.getElementById("btn1Player").style.display = "none";
+        divCanvas.style.display = "block";
+        canvas.style.visibility = 'visible';
+    }
+
+    function initGameTwoPlayer(){
+        somClique();
+        var nomeJogador1 = document.getElementById('jogador1').value;
+        var nomeJogador2 = document.getElementById('jogador2').value;
+
+        lstPlayer.push(player);
+        lstPlayer.push(player2);
+        lstPlayer[0].nome =nomeJogador1;
+        lstPlayer[1].nome =nomeJogador2;
+
+
+
+        initGame();
+    }
+
+    function initGameOnePlayer(){
+        somClique();
+        var nomeJogador1 = document.getElementById('jogador').value;
+        lstPlayer.push(player);
+        lstPlayer[0].nome =nomeJogador1;
+
+
+
+        initGame();
+    }
+
+    function Jogador(nome,index) {
+        this.nome = nome;
+        this.index = index;
+    }
+
+    function selectLabel(idL){
+        // for (i = )
+        document.getElementById('rbA' + idL).checked = true;
+    }
+
+
+
+    function onePlayerDiv(){
+        somClique();
+        document.getElementById("requesNames2").style.display = "none";
+        document.getElementById("requesNames1").style.display = "block";
+    }
+
+    function twoPlayerDiv(){
+        somClique();
+        document.getElementById("requesNames1").style.display = "none";
+        document.getElementById("requesNames2").style.display = "block";
+    }
+
+
+    function movePlayer() {
+        // drawing code
+
+        //ctx.beginPath();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(background,0,0);
+
+        var playerMove = (idPlayer+1)%2;
+        var playerStay = idPlayer;
+
+        //colocar o outro jogador na posicao correta
+        if (lstPlayer.length != 1){
+            ctx.drawImage(lstPlayer[playerStay].image,lstPlayer[playerStay].x+20,lstPlayer[playerStay].y);
+        }else{
+            playerMove = 0;
+        }
+
+
+
+        if (lstPlayer[playerMove].x < lstHouses[lstPlayer[playerMove].house].x){
+            lstPlayer[playerMove].x += speed;
+        }
+
+        if (lstPlayer[playerMove].x > lstHouses[lstPlayer[playerMove].house].x){
+            lstPlayer[playerMove].x -= speed;
+        }
+
+        if (lstPlayer[playerMove].y < lstHouses[lstPlayer[playerMove].house].y){
+            lstPlayer[playerMove].y += speed;
+        }
+
+        if (lstPlayer[playerMove].y > lstHouses[lstPlayer[playerMove].house].y){
+            lstPlayer[playerMove].y -= speed;
+        }
+
+        ctx.drawImage(lstPlayer[playerMove].image,lstPlayer[playerMove].x,lstPlayer[playerMove].y);
+
+        if (lstPlayer[playerMove].x == lstHouses[lstPlayer[playerMove].house].x && lstPlayer[playerMove].y == lstHouses[lstPlayer[playerMove].house].y){
+            if (lstPlayer[playerMove].house == 19){
+                abreLink(playerMove+1);
+                nDice = 0;
+                btnRollDice.disabled = true;
+            }
+
+            if (nDice == 0){
+
+                if (lstPerS.length == 50){
+                    abreLink(3);
+                }
+
+                if (lstPlayer[playerMove].house == 5){
+                    lstPlayer[playerMove].house += increment;
+                    nDice=1;
+
+                }else if (lstPlayer[playerMove].house == 17) {
+                    increment = -1;
+                    nDice = 17;
+                }else {
+                    canMove = true;
+                    btnRollDice.disabled = false;
+                }
+            }else{
+                lstPlayer[playerMove].house += increment;
+                nDice--;
+
+
+            }
+
+            //console.log("IdPlayer" + idPlayer);
+        }
+    }
+
+    setInterval(update, 15);
+
+    function update(){
+
+        if (canMove == false && lstPlayer.length > 0){
+            requestAnimationFrame(movePlayer);
+        }
+        //console.log(idPlayer);
+    }
+
+
+
+    function showQuestionDiv(){
+        //Colocar perguntas (aqui tem de sortear a pergunta)
+        var sorteada = randomIntFromInterval(0,lstQuestion.length-1);
+        while (lstPerS.includes(sorteada)){
+            sorteada = randomIntFromInterval(0,lstQuestion.length-1);
+        }
+
+        lstPerS.push(sorteada);
+        console.log(lstPerS.length);
+        document.getElementById('pergunta').innerHTML = lstQuestion[sorteada].q;
+        var pos = lstQuestion.indexOf(lstQuestion[sorteada]);
+
+        img = "img/"+ (parseInt(pos)+parseInt(1))+".jpg";
+
+        document.getElementById('imgPergunta').src = img;
+
+        correctAnswer = randomIntFromInterval(0,3);
+        //sortear o lugar da pergunta
+        var i = 0;
+        for(i = 0; i < 4; i++){
+            lstanswersText[((i+correctAnswer) % 4)].innerHTML = lstQuestion[sorteada]['a' + (i+1)];
+        }
+
+        divCanvas.style.display = 'inline';
+        divQuiz.style.display = 'inline';
+    }
+
+    function verificarResposta(){
+        somClique();
+        if (lstPlayer.length != 1){
+            changePlayer();
+        }
+
+        var win = false;
+        if (document.getElementById('rbA1').checked == true){
+            if (correctAnswer == 0){
+                win = true;
+            }
+
+        }else if(document.getElementById('rbA2').checked){
+            if (correctAnswer == 1){
+                win = true;
+            }
+        }else if(document.getElementById('rbA3').checked){
+            if (correctAnswer == 2){
+                win = true;
+            }
+        }else if(document.getElementById('rbA4').checked) {
+            if (correctAnswer == 3) {
+                win = true;
+            }
+        }
+
+        if (win){
+            answerCorrect();
+        }else{
+            var modal = document.getElementById('myModal');
+            modal.style.display = "block";
+        }
+
+
+        document.getElementById("rbA1").checked = false;
+        document.getElementById("rbA2").checked = false;
+        document.getElementById("rbA3").checked = false;
+        document.getElementById("rbA4").checked = false;
+
+    }
+    function showQuestion(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(background,0,0);
+        ctx.drawImage(player1Img,220,540);
+    }
+
+    ResetQ= function(){};
+
+    function randomIntFromInterval(min,max)
+    {
+        return Math.floor(Math.random()*(max-min+1)+min);
+    }
+    function rollDice(){
+        somClique();
+        btnRollDice.disabled = true;
+        var die = document.getElementById("die");
+        var d1 = Math.floor(Math.random() * 6) + 1;
+
+        die.style.backgroundImage = "url(./img/dado/" + d1 + ".png)";
+        nDice = d1;
+        increment = 1;
+
+        //changePlayer();
+
+        if ((lstPlayer[idPlayer].house + nDice) == 17){ //se sair para a casa 18 ele n responde
+            if (lstPlayer.length != 1){
+                changePlayer();
+            }
+            setTimeout(answerCorrect, 1000);
+        }else{
+            setTimeout(showQuestionDiv, 1000);
+        }
+
+
+    }
+
+    function answerCorrect(){
+        divCanvas.style.display = 'inline';
+        divQuiz.style.display = 'none';
+
+        if (lstPlayer.length != 1){
+            if (lstPlayer[(idPlayer+1)%2].house != 9){
+
+                lstPlayer[(idPlayer+1)%2].house += 1;
+                nDice--;
+                lstPlayer[(idPlayer+1)%2].house10 = false;
+
+            }else{
+                if (lstPlayer[(idPlayer+1)%2].house10){
+                    lstPlayer[(idPlayer+1)%2].house += 1;
+                    nDice--;
+                    lstPlayer[(idPlayer+1)%2].house10 = false;
+                }else{
+
+                    nDice = 0;
+                    lstPlayer[(idPlayer+1)%2].house10 = true;
+                }
+
+            }
+        }else{
+            if (lstPlayer[0].house != 9){
+
+                lstPlayer[0].house += 1;
+                nDice--;
+                lstPlayer[0].house10 = false;
+
+            }else{
+                if (lstPlayer[0].house10){
+                    lstPlayer[0].house += 1;
+                    nDice--;
+                    lstPlayer[0].house10 = false;
+                }else{
+
+                    nDice = 0;
+                    lstPlayer[0].house10 = true;
+                }
+
+            }
+        }
+
+        canMove = false;
+    }
+
+    function changePlayer() {
+        idPlayer = (idPlayer + 1) % 2;
+        playerText.innerHTML = "Jogador: " + lstPlayer[idPlayer].nome;
+    }
+
+    function casaEspecial() {
+        correctAnswer();
+    }
+    function mostrarPopup() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
+
+    function somClique() {
+        snd.play();
+    }
+
+
+</script>
+</body>
+</html>
